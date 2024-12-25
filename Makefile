@@ -1,23 +1,22 @@
-ASM = nasm
 CC = gcc
-
-ASM_FLAGS = -f elf64
-CC_FLAGS = -nostartfiles -lc -lm -dynamic-linker /lib64/ld-linux-x86-64.so.2 -no-pie
+LD = ld
+CFLAGS = -Wall -Wextra -O2
+LDFLAGS = -dynamic-linker /lib64/ld-linux-x86-64.so.2
 
 OUTPUT = bfASS.out
 
-SRC = $(wildcard src/*.asm)
+SRC = $(wildcard src/*.c)
 
-OBJ = $(SRC:src/%.asm=%.o)
+OBJ = $(SRC:src/%.c=%.o)
 
 all: $(OUTPUT)
 
-%.o: src/%.asm
-	$(ASM) $(ASM_FLAGS) -o $@ $<
+%.o: src/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(OUTPUT): $(OBJ)
-	$(CC) $(CC_FLAGS) -o $(OUTPUT) $(OBJ)
+	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJ)
 
 clean:
-	rm -f $(OBJ) $(OUTPUT)
+	rm -f *.o *.out
 
