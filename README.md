@@ -1,2 +1,2 @@
 # bfASS
-Brainfuck to linux x86_64 assembly transpiler written in linux x86_64 assembly 
+Brainfuck to linux assembly transpiler written in C 
